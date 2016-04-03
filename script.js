@@ -39,7 +39,4 @@ client.add(torrentId, function (torrent) {
 
 }
 
-addressbar.onkeydown = function(){if (event.keyCode == 13) {loadtorrent(addressbar.value);}}
-document.getElementById('load').addEventListener('click', function(){ loadtorrent(addressbar.value); },false);
-
 browser.addEventListener("message", function(){});
