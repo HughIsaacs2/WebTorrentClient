@@ -81,16 +81,21 @@ torrent.on('download', function(chunkSize){
   console.log('download speed: ' + torrent.downloadSpeed);
   console.log('progress: ' + torrent.progress);
   console.log('======');
-})
+  
+  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
+});
 
 torrent.on('done', function(){
   console.log('Web Torrent finished downloading');
-  torrent.files.forEach(function(file){
-     document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
-     // do something with file
-	 if(document.getElementById('seeding').checked) {
+  
+    document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
+    
+	if(document.getElementById('seeding').checked) {
 	 //client.seed(input, [opts], [function onseed (torrent) {}])
-	 }
+	}
+  
+  torrent.files.forEach(function(file){
+  // do something with file
   });
 });  
   
