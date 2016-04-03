@@ -59,7 +59,7 @@ file.getBlobURL(function (err, url) {
   document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
   
   var audio = document.createElement('audio');
-  audio.src = file.name;
+  audio.src = url;
   audio.controls = "true";
   audio.className == "player";
   playerEle.appendChild(audio);
