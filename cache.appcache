@@ -21,10 +21,11 @@ https://*
 
 CACHE:
 index.html
-style.css
+webtorrent.min.js
 script.js
-logo.png
+style.css
 logo.svg
+logo.png
 
 FALLBACK:
 #None

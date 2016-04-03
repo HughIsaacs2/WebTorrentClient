@@ -2,13 +2,14 @@ importScripts('serviceworker-cache-polyfill.js');
 
 /* v0.0.1 */
 var appVersion = '0.0.1';
-var CACHE_NAME = 'sw-cache-v2';
+var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
   'index.html',
+  'webtorrent.min.js',
   'script.js',
   'style.css',
-  'logo.png',
-  'logo.svg'
+  'logo.svg',
+  'logo.png'
 ];
 
 self.addEventListener('install', function(event) {
