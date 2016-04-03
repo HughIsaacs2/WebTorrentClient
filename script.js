@@ -16,7 +16,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-navigator.registerProtocolHandler("web+magnet", "/#%s", "Web Magnet");
+navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
 
 if(window.location.hash){torrentId = location.hash;}
 
@@ -38,5 +38,3 @@ client.add(torrentId, function (torrent) {
 });
 
 }
-
-browser.addEventListener("message", function(){});
