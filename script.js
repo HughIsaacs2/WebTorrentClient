@@ -3,6 +3,7 @@ window.scrollTo(0, 1);
 
 		var torrentClient = new WebTorrent();
 		var torrentId = "";
+		var playerEle = document.getElementById("player");
 
 if (window.location.protocol != "https:") {window.location.protocol == "https:";}
 
@@ -32,7 +33,7 @@ if ('serviceWorker' in navigator) {
 
 navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
 
-if(window.location.hash){loadTorrent(location.hash);}
+if(window.location.hash){loadTorrent(location.hash);console.log('Got Web Torrent!');} else { playerEle.innerHTML="No Web Torrent given to load. 🐀򚐀"; }
 
 function loadTorrent(urlToLoad) {
 
