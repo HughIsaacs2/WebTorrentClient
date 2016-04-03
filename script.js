@@ -56,7 +56,9 @@ torrentClient.add(torrentId, function (torrent) {
 /* Clear playerEle when first file is displayed */
 torrent.files[0].getBlobURL(function (err, url) {
 	  if (err) { throw err }
-	  playerEle.innerHTML="";
+	  if(document.getElementById('loading')!=null){
+	  document.getElementById("player").removeChild(document.getElementById("loading"));
+	  }
 });
 
  torrent.files.forEach(function (file) {
