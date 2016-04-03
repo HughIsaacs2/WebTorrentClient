@@ -78,12 +78,12 @@ torrentClient.add(torrentId, function (torrent) {
 
 /* Display download status */
 torrent.on('download', function(chunkSize){
-  console.log('chunk size: ' + chunkSize);
+  /* console.log('chunk size: ' + chunkSize);
   console.log('total downloaded: ' + torrent.downloaded);
   console.log('download speed: ' + torrent.downloadSpeed);
   console.log('progress: ' + torrent.progress);
   console.log('======');
-  
+  */
   document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
 });
 
