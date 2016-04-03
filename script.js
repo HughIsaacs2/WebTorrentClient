@@ -5,7 +5,7 @@ window.scrollTo(0, 1);
 		var torrentId = "";
 		var playerEle = document.getElementById("player");
 
-if (window.location.protocol != "https:") {window.location.protocol == "https:";}
+if (window.location.protocol != "https:") {window.location.protocol = "https:";}
 
 if (WebTorrent.WEBRTC_SUPPORT) {
   console.log('Web Torrent is supported!');
