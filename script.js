@@ -46,8 +46,9 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
-	playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading'/>";
+playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading'/>";
 
+/* Start download */
 torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
@@ -74,7 +75,8 @@ torrentClient.add(torrentId, function (torrent) {
   });
 	
  });
-/*
+
+/* Display download status */
 torrent.on('download', function(chunkSize){
   console.log('chunk size: ' + chunkSize);
   console.log('total downloaded: ' + torrent.downloaded);
@@ -84,8 +86,8 @@ torrent.on('download', function(chunkSize){
   
   document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
 });
-*/
-/*
+
+/* Torrent finished event */
 torrent.on('done', function(){
   console.log('Web Torrent finished downloading');
   
@@ -98,7 +100,7 @@ torrent.on('done', function(){
   torrent.files.forEach(function(file){
   
   });
-});  */
+});
   
 });
 
