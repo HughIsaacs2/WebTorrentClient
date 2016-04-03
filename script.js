@@ -53,12 +53,16 @@ torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
 
+/* Clear playerEle when first file is displayed */
+torrent.files[0].getBuffer(function (err, url) {
+	  if (err) { throw err }
+	  playerEle.innerHTML="";
+});
+
  torrent.files.forEach(function (file) {
  
-  file.getBlobURL(function (err, url) {
+  file.getBuffer(function (err, url) {
     if (err) { throw err }
-    
-	playerEle.innerHTML="";
 	
     var audio = document.createElement('audio');
     audio.src = url;
