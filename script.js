@@ -3,6 +3,8 @@ window.scrollTo(0, 1);
 
 		var torrentClient = new WebTorrent();
 		var torrentId = "";
+
+if (window.location.protocol != "https:") {window.location.protocol == "https:";}
 		
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('serviceworker.js').then(function(registration) {
