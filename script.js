@@ -47,7 +47,7 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
-client.add(torrentId, function (torrent) {
+torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
 
