@@ -74,7 +74,7 @@ torrentClient.add(torrentId, function (torrent) {
   });
 	
  });
-
+/*
 torrent.on('download', function(chunkSize){
   console.log('chunk size: ' + chunkSize);
   console.log('total downloaded: ' + torrent.downloaded);
@@ -84,6 +84,7 @@ torrent.on('download', function(chunkSize){
   
   document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
 });
+*/
 /*
 torrent.on('done', function(){
   console.log('Web Torrent finished downloading');
