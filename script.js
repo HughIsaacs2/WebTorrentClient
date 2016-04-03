@@ -7,6 +7,12 @@ window.scrollTo(0, 1);
 
 if (window.location.protocol != "https:") {window.location.protocol == "https:";}
 
+if (WebTorrent.WEBRTC_SUPPORT) {
+  console.log('Web Torrent is supported!');
+} else {
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️";
+}
+
 if (window.applicationCache) {
 window.applicationCache.addEventListener('updateready', function(){
 		console.log("AppCache: Update found.");
@@ -33,7 +39,7 @@ if ('serviceWorker' in navigator) {
 
 navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
 
-if(window.location.hash){loadTorrent(location.hash);console.log('Got Web Torrent!');} else { playerEle.innerHTML="No Web Torrent given to load. 🐀򚐀"; }
+if(window.location.hash){loadTorrent(location.hash);console.log('Got Web Torrent!');} else { playerEle.innerHTML="No Web Torrent given to load. ☹️"; }
 
 function loadTorrent(urlToLoad) {
 
