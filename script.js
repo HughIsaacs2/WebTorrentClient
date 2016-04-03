@@ -7,12 +7,6 @@ window.scrollTo(0, 1);
 
 if (window.location.protocol != "https:") {window.location.protocol = "https:";}
 
-if (WebTorrent.WEBRTC_SUPPORT) {
-  console.log('Web Torrent is supported!');
-} else {
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️";
-}
-
 if (window.applicationCache) {
 window.applicationCache.addEventListener('updateready', function(){
 		console.log("AppCache: Update found.");
@@ -39,7 +33,12 @@ if ('serviceWorker' in navigator) {
 
 navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
 
-if(window.location.hash){loadTorrent(location.hash);console.log('Got Web Torrent!');} else { playerEle.innerHTML="No Web Torrent given to load. ☹️"; }
+if (WebTorrent.WEBRTC_SUPPORT) {
+  console.log('Web Torrent is supported!');
+  if(window.location.hash){ loadTorrent(location.hash); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. ☹️"; }
+} else {
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️";
+}
 
 function loadTorrent(urlToLoad) {
 
@@ -47,32 +46,54 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
+	playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading'/>";
+
 torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
 
-  torrent.files.forEach(function (file) {
+ torrent.files.forEach(function (file) {
+ 
+  file.getBlobURL(function (err, url) {
+    if (err) { throw err }
     
-file.getBlobURL(function (err, url) {
-  if (err) { throw err }
-  
-  document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
-  
-  var audio = document.createElement('audio');
-  audio.src = url;
-  audio.controls = "true";
-  audio.className == "player";
-  playerEle.appendChild(audio);
-  
-  var a = document.createElement('a');
-  a.download = file.name;
-  a.href = url;
-  a.textContent = 'Download ' + file.name;
-  a.className == "button download-link";
-  playerEle.appendChild(a);
-});
+	playerEle.innerHTML="";
 	
+    var audio = document.createElement('audio');
+    audio.src = url;
+    audio.controls = "true";
+    audio.className == "player";
+    playerEle.appendChild(audio);
+    
+    var a = document.createElement('a');
+    a.download = file.name;
+    a.href = url;
+    a.textContent = 'Download ' + file.name;
+    a.className == "button download-link";
+    playerEle.appendChild(a);
   });
+	
+ });
+
+torrent.on('download', function(chunkSize){
+  console.log('chunk size: ' + chunkSize);
+  console.log('total downloaded: ' + torrent.downloaded);
+  console.log('download speed: ' + torrent.downloadSpeed);
+  console.log('progress: ' + torrent.progress);
+  console.log('======');
+})
+
+torrent.on('done', function(){
+  console.log('Web Torrent finished downloading');
+  torrent.files.forEach(function(file){
+     document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
+     // do something with file
+	 if(document.getElementById('seeding').checked) {
+	 //client.seed(input, [opts], [function onseed (torrent) {}])
+	 }
+  });
+});  
+  
 });
 
 }
