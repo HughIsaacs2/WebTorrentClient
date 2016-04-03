@@ -7,7 +7,8 @@ var urlsToCache = [
   'index.html',
   'script.js',
   'style.css',
-  'webtorrent-logo.svg'
+  'logo.png',
+  'logo.svg'
 ];
 
 self.addEventListener('install', function(event) {

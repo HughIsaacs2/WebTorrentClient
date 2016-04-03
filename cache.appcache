@@ -23,7 +23,8 @@ CACHE:
 index.html
 style.css
 script.js
-webtorrent-logo.svg
+logo.png
+logo.svg
 
 FALLBACK:
 / /index.html
