@@ -5,7 +5,21 @@ window.scrollTo(0, 1);
 		var torrentId = "";
 
 if (window.location.protocol != "https:") {window.location.protocol == "https:";}
-		
+
+if (window.applicationCache) {
+window.applicationCache.addEventListener('updateready', function(){
+		console.log("AppCache: Update found.");
+		window.applicationCache.swapCache();
+		window.location.reload(true);
+}, false);
+window.applicationCache.addEventListener('updateready', function(){
+		console.log("AppCache: Updating.");
+}, false);
+window.applicationCache.addEventListener('noupdate', function(){
+	console.log("AppCache: No updates."); 
+}, false);
+}
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('serviceworker.js').then(function(registration) {
     // Registration was successful
@@ -18,9 +32,9 @@ if ('serviceWorker' in navigator) {
 
 navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
 
-if(window.location.hash){torrentId = location.hash;}
+if(window.location.hash){loadTorrent(location.hash);}
 
-function loadtorrent(urlToLoad) {
+function loadTorrent(urlToLoad) {
 
 torrentId = urlToLoad;
 
