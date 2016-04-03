@@ -54,14 +54,14 @@ torrentClient.add(torrentId, function (torrent) {
   console.log('Client is downloading:', torrent.infoHash);
 
 /* Clear playerEle when first file is displayed */
-torrent.files[0].getBuffer(function (err, url) {
+torrent.files[0].getBlobURL(function (err, url) {
 	  if (err) { throw err }
 	  playerEle.innerHTML="";
 });
 
  torrent.files.forEach(function (file) {
  
-  file.getBuffer(function (err, url) {
+  file.getBlobURL(function (err, url) {
     if (err) { throw err }
 	
     var audio = document.createElement('audio');
