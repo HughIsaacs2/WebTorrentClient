@@ -52,9 +52,26 @@ torrentClient.add(torrentId, function (torrent) {
   console.log('Client is downloading:', torrent.infoHash);
 
   torrent.files.forEach(function (file) {
-    // Display the file by appending it to the DOM. Supports video, audio, images, and
-    // more. Specify a container element (CSS selector or reference to DOM node).
-    file.appendTo('#player');
+    
+file.getBlobURL(function (err, url) {
+  if (err) { throw err }
+  
+  document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
+  
+  var audio = document.createElement('audio');
+  audio.src = file.name;
+  audio.controls = "true";
+  audio.className == "player";
+  playerEle.appendChild(audio);
+  
+  var a = document.createElement('a');
+  a.download = file.name;
+  a.href = url;
+  a.textContent = 'Download ' + file.name;
+  a.className == "button download-link";
+  playerEle.appendChild(a);
+});
+	
   });
 });
 
