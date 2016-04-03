@@ -1,0 +1,29 @@
+CACHE MANIFEST
+# AppCache v0.0.1
+
+NETWORK:
+http://google-analytics.com/ga.js
+http://www.google-analytics.com/ga.js
+https://google-analytics.com/ga.js
+https://www.google-analytics.com/ga.js
+https://sssl.google-analytics.com/ga.js
+http://connect.facebook.net/en_US/all.js
+https://connect.facebook.net/en_US/all.js
+http://apis.google.com/js/plusone.js
+https://apis.google.com/js/plusone.js
+http://platform.twitter.com/widgets.js
+https://platform.twitter.com/widgets.js
+http://s2.googleusercontent.com/*
+https://s2.googleusercontent.com/*
+http://*
+https://*
+*
+
+CACHE:
+index.html
+style.css
+script.js
+webtorrent-logo.svg
+
+FALLBACK:
+/ /index.html

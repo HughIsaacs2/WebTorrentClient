@@ -1,0 +1,116 @@
+html,
+body {
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    background-color: #ffffff;
+	color: #000000;
+    overflow: hidden;
+    font-family: noto, ubuntu, helvetica, arial;
+}
+
+@keyframes loading {
+  from {
+    transform: rotateY(0deg);
+  }
+ 
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+#logo{
+    display: inline-block;
+	height: 21px;
+	width: auto;
+	position: relative;
+    top: 5px;
+    left: 1px;
+}
+
+.loading  #logo, .page-loading #logo, .torrent-loading #logo{
+cursor: wait;
+cursor: progress;
+animation-direction: normal;
+animation-iteration-count: infinite;
+animation-duration: 4s;
+transform-style: preserve-3d;
+backface-visibility: visible;
+animation-name: loading;
+}
+
+.loading  {
+cursor: wait;
+cursor: progress;
+}
+
+.tab header {
+height: 25px;
+font-size: 15px;
+font-weight: bold;
+color: #000000;
+border-bottom-color: #000000;
+border-bottom-width: 1px;
+border-bottom-style: solid;
+}
+
+.tab .favicon {
+
+}
+
+#nav {
+display: block;
+top: 0px;
+    height: 30px;
+    width: 100%;
+    //position:absolute;
+    z-index: 10;
+    opacity:1;
+    transition: opacity 500ms;
+	transition-property: opacity, background-color;
+	transition-duration: 500ms, 0.3s;
+	-webkit-app-region: drag;
+	border-bottom-color: #242930;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+	background-color: #242930;
+	color: #339cef;
+}
+
+#address {
+        width:calc(100% - 250px);
+		/*
+        font-size:30px;
+        line-height:40px;
+        border:none;
+        box-shadow: inset 0 0 3px rgba(0,0,0,.4);
+        margin:5px 5px 5px 10px;
+        padding: 0 3px;
+		*/
+		border: none;
+		box-shadow: inset 0 0 3px rgba(0,0,0,.4);
+		padding: 4px;
+		border-radius: 4px;
+}
+
+#browser {
+    border:none;
+    margin:0;
+    width:100%;
+    height:calc(100% - 55px);
+    position:absolute;
+    top: 55px;
+    opacity:1;
+    transition: opacity 500ms;
+	z-index: 9999;
+	background-color: #ffffff;
+}
+
+.hidden {
+    display:none;
+}
+
+#favicon {
+image-rendering: optimizeQuality;
+}
