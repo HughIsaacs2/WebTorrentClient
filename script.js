@@ -95,7 +95,7 @@ torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
 
-/* Clear playerEle when first file is displayed */
+/* Remove #loading when first file is displayed */
 torrent.files[0].getBlobURL(function (err, url) {
 	  if (err) { throw err }
 	  if(document.getElementById('loading')!=null){
@@ -108,13 +108,13 @@ torrent.files[0].getBlobURL(function (err, url) {
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
 	  
-      if (this.path === 'cover.png' || this.path === 'cover.jpg') {
+      if (file.path === 'cover.png' || file.path === 'cover.jpg') {
         file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
 
-      } else if (this.path === 'playlist.m3u' || this.path === 'playlist.m3u8') {
+      } else if (file.path === 'playlist.m3u' || file.path === 'playlist.m3u8') {
 	  file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
