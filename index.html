@@ -11,12 +11,17 @@
 <link rel="icon" type="image/svg+xml" href="logo.svg" sizes="any" defer="true" />
 <link rel="stylesheet" href="style.css" /></head>
 <body>
-<main><img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="20px" height="20px" /><br/>
-<aside id="player"></aside><br/>
+<main id="main"><img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="25px" height="25px" /><br/>
+<aside id="player"><audio id="player" src="about:blank" controls="true" class="player"></audio>
+
+</aside><br/>
 <label><input type="checkbox" id="seeding" value="seeding" checked="true"> Seed</label><br/>
 <aside id="log"></aside><br/>
 </main>
-<script src="webtorrent.min.js"></script>
-<script src="script.js" type="text/javascript" defer="true"></script>
+<noscript>Sorry. This web app sadly requires JavaScript to work.</noscript>
+<script type="text/javascript" src="modernizr-custom.js"></script>
+<script type="text/javascript" src="webtorrent.min.js"></script>
+<script type="text/javascript" src="playlist-parser.min.js"></script>
+<script type="text/javascript" src="script.js" defer="true"></script>
 </body>
 </html>

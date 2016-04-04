@@ -5,6 +5,7 @@ var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
   'index.html',
+  'modernizr-custom.js',
   'webtorrent.min.js',
   'playlist-parser.min.js',
   'script.js',

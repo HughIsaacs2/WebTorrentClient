@@ -15,10 +15,7 @@
        local('Segoe UI'),
 	   local('Segoe UI Symbol'),
        local(EmojiSymbols),
-       local(Symbola)/*,
-       url('fonts/Symbola-Emoji.eot?#iefix') format('embedded-opentype'),
-       url('fonts/Symbola-Emoji.woff') format('woff'),
-       url('fonts/Symbola-Emoji.ttf') format('truetype')*/;
+       local(Symbola);
 
   /* Emoji unicode blocks */
   unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;
@@ -34,6 +31,25 @@ body {
 	color: #000000;
     overflow: hidden;
     font-family: noto, ubuntu, Lucida Sans, Lucida Grande, Lucida Sans Unicode, HelveticaNeue-Light, HelveticaNeue, Helvetica, Arial, sans-serif, Segoe UI, 'Segoe UI Symbol', 'emoji';
+	text-align: center;
+}
+
+body {
+background-image: url('logo.png');
+background-image: url('logo.svg'), none;
+background-repeat: repeat;
+background-position: 0 0;
+background-size: cover;
+}
+
+#main {
+display: block;
+clear: both;
+float: left;
+width: 100%;
+height: 100%;
+background-color: #ffffff;
+background-color: rgba(255, 255, 255, 0.75);
 }
 
 @keyframes loading {
@@ -67,4 +83,21 @@ animation-name: loading;
 .loading  {
 cursor: wait;
 cursor: progress;
+}
+
+#logo {
+width: 50px;
+height: 50px;
+}
+
+#player {
+    background-color: #BBFFFB;
+    color: #000000;
+}
+
+#log {
+    background-color: #005D00;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 15px;
 }
