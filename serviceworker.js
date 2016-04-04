@@ -6,6 +6,7 @@ var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
   'index.html',
   'webtorrent.min.js',
+  'playlist-parser.min.js',
   'script.js',
   'style.css',
   'logo.svg',
