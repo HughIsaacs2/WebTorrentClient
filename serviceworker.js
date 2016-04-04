@@ -1,6 +1,6 @@
 importScripts('serviceworker-cache-polyfill.js');
 
-/* v0.0.1 None7 */
+/* v0.0.1 None8 */
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [

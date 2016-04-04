@@ -51,7 +51,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
     if (window.localStorage && localStorage.getItem("seeding") === "true") {
       document.getElementById('seeding').checked="true";
     } else if (window.localStorage && localStorage.getItem("seeding") === "false") {
-      document.getElementById('seeding').checked="false";
+      document.getElementById('seeding').removeAttribute("checked");
     }
   }
   
