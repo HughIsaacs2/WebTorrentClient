@@ -46,6 +46,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   
   if (window.localStorage && localStorage.getItem("seeding") === null) {
     document.getElementById('seeding').checked="true";
+	if(window.localStorage){localStorage.setItem('seeding', 'true');}
   } else {
     if (window.localStorage && localStorage.getItem("seeding") === "true") {
       document.getElementById('seeding').checked="true";
