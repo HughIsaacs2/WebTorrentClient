@@ -107,20 +107,15 @@ torrent.files[0].getBlobURL(function (err, url) {
  
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
-	
-	// Get index.html
-var index = null;
-    for (var i = 0; i < torrent.files.length; i++) {
-      var path = torrent.files[i].path;
-	  console.log(torrent.files);
-      if (path === 'cover.png' || path === 'cover.jpg') {
-        index = torrent.files[i];
+	  
+      if (this.path === 'cover.png' || this.path === 'cover.jpg') {
+        file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
 
-      } else if (path === 'playlist.m3u' || path === 'playlist.m3u8') {
-	  index = torrent.files[i];
+      } else if (this.path === 'playlist.m3u' || this.path === 'playlist.m3u8') {
+	  file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
         var playlist = M3U.parse(url);
@@ -142,7 +137,7 @@ var index = null;
     a.className = "button download-link";
     playerEle.appendChild(a);
 	}
-	}
+	
   });
 	
  });
