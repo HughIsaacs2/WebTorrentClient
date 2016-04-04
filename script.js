@@ -2,9 +2,29 @@
 document.documentElement.className=document.documentElement.className.replace("no-js","js");
 window.scrollTo(0, 1);
 
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(searchString, position) {
+      var subjectString = this.toString();
+      if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.indexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+  };
+}
+
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+  };
+}
+
 		var torrentClient = new WebTorrent();
 		var torrentId = "";
 		var playerEle = document.getElementById("player");
+		var playlist = "";
 
 if (window.location.protocol != "https:") {window.location.protocol = "https:";}
 
@@ -18,7 +38,7 @@ window.applicationCache.addEventListener('updateready', function(){
 		console.log("AppCache: Updating.");
 }, false);
 window.applicationCache.addEventListener('noupdate', function(){
-	console.log("AppCache: No updates.");
+	console.log("AppCache: No updates."); 
 }, false);
 }
 
@@ -34,9 +54,6 @@ if ('serviceWorker' in navigator) {
 
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
-  
-  document.getElementById('seeding').removeAttribute("disabled");
-  
   if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. ☹️. <br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
@@ -61,7 +78,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/'>WebTorrent Desktop</a>, <a href='http://www.utorrent.com/'>µTorrent</a> or <a href='https://www.transmissionbt.com/'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/>Also there was no Web Torrent given to load.<br/>" }
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://www.utorrent.com/'>µTorrent</a> or <a href='https://www.transmissionbt.com/'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
 }
 
@@ -71,16 +88,12 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
-playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg 1x, logo.svg 2x' alt='loading' title='loading'/><br/>";
+playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading'/><br/>";
 
 /* Start download */
 torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
-  
-  document.title = "Web Torrent Player [" + torrent.infoHash + "]";
-  
-  document.getElementById("info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/><sub>"+torrent.magnetURI + "</sub><br/>";
 
 /* Clear playerEle when first file is displayed */
 torrent.files[0].getBlobURL(function (err, url) {
@@ -95,6 +108,27 @@ torrent.files[0].getBlobURL(function (err, url) {
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
 	
+	// Get index.html
+var index = null;
+    for (var i = 0; i < torrent.files.length; i++) {
+      var path = torrent.files[i].path;
+	  console.log(torrent.files);
+      if (path === 'cover.png' || path === 'cover.jpg') {
+        index = torrent.files[i];
+        console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
+
+	  document.body.style.backgroundImage = "url('" + url + "')";
+
+      } else if (path === 'playlist.m3u' || path === 'playlist.m3u8') {
+	  index = torrent.files[i];
+        console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
+
+        var playlist = M3U.parse(url);
+		console.log("Playlist: " + playlist);
+	  
+	  
+	  } else {
+    
     var audio = document.createElement('audio');
     audio.src = url;
     audio.controls = "true";
@@ -107,6 +141,8 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
     playerEle.appendChild(a);
+	}
+	}
   });
 	
  });
@@ -141,4 +177,4 @@ torrent.on('done', function(){
 
 }
 
-navigator.registerProtocolHandler("web+musicmagnet", "/#magnet:%s", "Web Music Magnet");
+navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
