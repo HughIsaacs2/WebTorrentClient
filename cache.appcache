@@ -21,6 +21,7 @@ https://*
 
 CACHE:
 index.html
+/
 modernizr-custom.js
 webtorrent.min.js
 playlist-parser.min.js
