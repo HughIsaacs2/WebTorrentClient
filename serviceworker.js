@@ -1,5 +1,3 @@
-importScripts('serviceworker-cache-polyfill.js');
-
 /* v0.0.1 None12 */
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
