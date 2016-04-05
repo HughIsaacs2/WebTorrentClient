@@ -50,6 +50,18 @@ if ('serviceWorker' in navigator) {
     // registration failed :(
     console.log('ServiceWorker registration failed: ', err);
   });
+  
+  // Listen for claiming of our ServiceWorker
+  navigator.serviceWorker.addEventListener('controllerchange', function(event) {
+  // Listen for changes in the state of our ServiceWorker
+    navigator.serviceWorker.controller.addEventListener('statechange', function() {
+    // If the ServiceWorker becomes "activated", let the user know they can go offline!
+      if (this.state === 'activated') {
+      // Reload like you would with AppCache
+      window.location.reload(true);
+      }
+    });
+  });
 }
 
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
