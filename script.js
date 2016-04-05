@@ -153,7 +153,7 @@ torrent.files[0].getBlobURL(function (err, url) {
 		console.log("Playlist: " + playlist);
 	  
 	  
-	  } else if (file.path.endsWith('.mp3') || file.path.endsWith('.ogg') || file.path.endsWith('.aac')) {
+	  } else if (file.path.endsWith([".mp3",".m4a",".aac",".ogg"])) {
     
     var audio = document.createElement('audio');
     audio.src = url;
