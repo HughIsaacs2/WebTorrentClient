@@ -21,8 +21,8 @@ https://*
 
 CACHE:
 index.html
-WebTorrentClient
-WebTorrentClient/
+/WebTorrentClient
+/WebTorrentClient/
 modernizr-custom.js
 webtorrent.min.js
 playlist-parser.min.js
