@@ -124,7 +124,7 @@ torrent.files[0].getBlobURL(function (err, url) {
  
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
-	
+	/*
 	var audio = document.createElement('audio');
     audio.src = url;
     audio.controls = "true";
@@ -137,8 +137,8 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
     playerEle.appendChild(a);
-	
-	  /*
+	*/
+	  
       if (file.path === 'cover.png' || file.path === 'cover.jpg' || file.path === 'cover.PNG' || file.path === 'cover.jpeg') {
         file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
@@ -177,7 +177,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.className = "button download-link";
     playerEle.appendChild(a);
 	}
-	*/
+	
 	
   });
 	
