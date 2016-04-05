@@ -138,15 +138,14 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.className = "button download-link";
     playerEle.appendChild(a);
 	*/
-	var pathlife = file.path;
 	  
-      if (file.path === 'cover.png' || file.path === 'cover.jpg' || file.path === 'cover.PNG' || file.path === 'cover.jpeg') {
+      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.PNG' || file.name === 'cover.jpeg') {
         file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
 
-      } else if (file.path === 'playlist.m3u' || file.path === 'playlist.m3u8') {
+      } else if (file.name === 'playlist.m3u' || file.name === 'playlist.m3u8') {
 	  file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
@@ -154,7 +153,7 @@ torrent.files[0].getBlobURL(function (err, url) {
 		console.log("Playlist: " + playlist);
 	  
 	  
-	  } else if (pathlife.endsWith(".mp3") || pathlife.endsWith(".m4a") || pathlife.endsWith(".aac") || pathlife.endsWith(".ogg")) {
+	  } else if (file.name.endsWith(".mp3") || file.name.endsWith(".m4a") || file.name.endsWith(".aac") || file.name.endsWith(".ogg")) {
     
     var audio = document.createElement('audio');
     audio.src = url;
