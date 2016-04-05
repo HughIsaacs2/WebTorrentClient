@@ -138,6 +138,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.className = "button download-link";
     playerEle.appendChild(a);
 	*/
+	var pathlife = file.path;
 	  
       if (file.path === 'cover.png' || file.path === 'cover.jpg' || file.path === 'cover.PNG' || file.path === 'cover.jpeg') {
         file = torrent.files[i];
@@ -153,7 +154,7 @@ torrent.files[0].getBlobURL(function (err, url) {
 		console.log("Playlist: " + playlist);
 	  
 	  
-	  } else if (file.path.endsWith(".mp3") || file.path.endsWith(".m4a") || file.path.endsWith(".aac") || file.path.endsWith(".ogg")) {
+	  } else if (pathlife.endsWith(".mp3") || pathlife.endsWith(".m4a") || pathlife.endsWith(".aac") || pathlife.endsWith(".ogg")) {
     
     var audio = document.createElement('audio');
     audio.src = url;
