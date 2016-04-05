@@ -1,6 +1,6 @@
 importScripts('serviceworker-cache-polyfill.js');
 
-/* v0.0.1 None11 */
+/* v0.0.1 None12 */
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
@@ -26,10 +26,6 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-if (event.request.url.pathname == '/appcache.html') {
-    event.respondWith('/data/');
-  }
-  else {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -68,12 +64,11 @@ if (event.request.url.pathname == '/appcache.html') {
         );
       })
     );
-	}
 });
 
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['sw-cache-v2'];
+  var cacheWhitelist = ['sw-cache'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {

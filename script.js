@@ -78,7 +78,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://www.utorrent.com/'>µTorrent</a> or <a href='https://www.transmissionbt.com/'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/>Also there was no Web Torrent given to load.<br/>" }
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>, <a href='http://www.utorrent.com/' target='_blank'>µTorrent</a> or <a href='https://www.transmissionbt.com/' target='_blank'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
 }
 
@@ -94,7 +94,11 @@ playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loa
 torrentClient.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
-
+  
+  document.title = "Web Torrent Player [" + torrent.infoHash + "]";
+  
+  document.getElementById("info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/><sub>" + torrent.magnetURI + "</sub><br/>";
+  
 /* Remove #loading when first file is displayed */
 torrent.files[0].getBlobURL(function (err, url) {
 	  if (err) { throw err }
@@ -108,7 +112,7 @@ torrent.files[0].getBlobURL(function (err, url) {
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
 	  
-      if (file.path === 'cover.png' || file.path === 'cover.jpg') {
+      if (file.path === 'cover.png' || file.path === 'cover.jpg' || file.path === 'cover.PNG' || file.path === 'cover.jpeg') {
         file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
@@ -122,13 +126,22 @@ torrent.files[0].getBlobURL(function (err, url) {
 		console.log("Playlist: " + playlist);
 	  
 	  
-	  } else {
+	  } else if (file.path.endsWith('.mp3') || file.path.endsWith('.ogg') || file.path.endsWith('.aac')) {
     
     var audio = document.createElement('audio');
     audio.src = url;
     audio.controls = "true";
     audio.className = "player";
     playerEle.appendChild(audio);
+    
+    var a = document.createElement('a');
+    a.download = file.name;
+    a.href = url;
+    a.textContent = 'Download ' + file.name;
+    a.className = "button download-link";
+    playerEle.appendChild(a);
+	
+	} else {
     
     var a = document.createElement('a');
     a.download = file.name;
@@ -151,6 +164,8 @@ torrent.on('download', function(chunkSize){
   console.log('======');
   */
   document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
+  document.getElementById("progress").textContent=torrent.progress;
+  document.getElementById("progress").value=torrent.progress;
 });
 
 /* Torrent finished event */
@@ -172,4 +187,4 @@ torrent.on('done', function(){
 
 }
 
-navigator.registerProtocolHandler("web+magnetmusic", "/#%s", "Web Magnet Music");
+navigator.registerProtocolHandler("web+magnet", "/#magnet:%s", "Web Magnet");
