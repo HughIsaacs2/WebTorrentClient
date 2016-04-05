@@ -191,9 +191,15 @@ torrent.on('download', function(chunkSize){
   console.log('progress: ' + torrent.progress);
   console.log('======');
   */
-  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + '<hr/>' + '======';
+  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + 'peers: ' + torrent.numPeers + '<br/>' + 'path: ' + torrent.path + '<br/>';
   document.getElementById("progress").textContent=torrent.progress;
+  document.getElementById("progress").title=torrent.progress;
   document.getElementById("progress").value=torrent.progress;
+});
+
+/* When peer connected */
+torrent.on('wire', function (wire, addr) {
+  console.log('connected to peer with address ' + addr);
 });
 
 /* Torrent finished event */
@@ -203,6 +209,10 @@ torrent.on('done', function(){
     document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
     
 	if(document.getElementById('seeding').checked) {
+	
+	client.seed(torrent.files, function (torrent) {
+    console.log('Client is seeding ' + torrent.magnetURI);
+	});
 	
 	}
   
