@@ -210,7 +210,7 @@ torrent.on('done', function(){
     
 	if(document.getElementById('seeding').checked) {
 	
-	client.seed(torrent.files, function (torrent) {
+	torrentClient.seed(torrent.files, function (torrent) {
     console.log('Client is seeding ' + torrent.magnetURI);
 	});
 	
