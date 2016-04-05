@@ -66,6 +66,7 @@ if ('serviceWorker' in navigator) {
 
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
+  document.getElementById('seeding').removeAttribute("disabled");
   if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. ☹️. <br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
@@ -123,7 +124,21 @@ torrent.files[0].getBlobURL(function (err, url) {
  
   file.getBlobURL(function (err, url) {
     if (err) { throw err }
-	  
+	
+	var audio = document.createElement('audio');
+    audio.src = url;
+    audio.controls = "true";
+    audio.className = "player";
+    playerEle.appendChild(audio);
+    
+    var a = document.createElement('a');
+    a.download = file.name;
+    a.href = url;
+    a.textContent = 'Download ' + file.name;
+    a.className = "button download-link";
+    playerEle.appendChild(a);
+	
+	  /*
       if (file.path === 'cover.png' || file.path === 'cover.jpg' || file.path === 'cover.PNG' || file.path === 'cover.jpeg') {
         file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
@@ -138,7 +153,7 @@ torrent.files[0].getBlobURL(function (err, url) {
 		console.log("Playlist: " + playlist);
 	  
 	  
-	  } else if (file.path.endsWith('.mp3')) {
+	  } else if (file.path.endsWith('.mp3') || file.path.endsWith('.ogg') || file.path.endsWith('.aac')) {
     
     var audio = document.createElement('audio');
     audio.src = url;
@@ -162,6 +177,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.className = "button download-link";
     playerEle.appendChild(a);
 	}
+	*/
 	
   });
 	
