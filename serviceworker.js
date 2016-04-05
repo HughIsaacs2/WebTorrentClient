@@ -1,4 +1,4 @@
-/* v0.0.1 None23 */
+/* v0.0.1 None24 */
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
