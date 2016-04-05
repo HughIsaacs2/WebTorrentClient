@@ -140,18 +140,15 @@ torrent.files[0].getBlobURL(function (err, url) {
 	*/
 	  
       if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.PNG' || file.name === 'cover.jpeg') {
-        file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
 
       } else if (file.name === 'playlist.m3u' || file.name === 'playlist.m3u8') {
-	  file = torrent.files[i];
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
         var playlist = M3U.parse(url);
 		console.log("Playlist: " + playlist);
-	  
 	  
 	  } else if (file.name.endsWith(".mp3") || file.name.endsWith(".m4a") || file.name.endsWith(".aac") || file.name.endsWith(".ogg")) {
     
