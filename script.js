@@ -143,12 +143,26 @@ torrent.files[0].getBlobURL(function (err, url) {
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
+	  
+	  var a = document.createElement('a');
+	  a.download = file.name;
+	  a.href = url;
+	  a.textContent = 'Download ' + file.name;
+	  a.className = "button download-link";
+	  playerEle.appendChild(a);
 
       } else if (file.name === 'playlist.m3u' || file.name === 'playlist.m3u8') {
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
         var playlist = M3U.parse(url);
-		console.log("Playlist: " + playlist);
+		console.log("Playlist: " + JSON.stringify(playlist));
+		
+		var a = document.createElement('a');
+		a.download = file.name;
+		a.href = url;
+		a.textContent = 'Download ' + file.name;
+		a.className = "button download-link";
+		playerEle.appendChild(a);
 	  
 	  } else if (file.name.endsWith(".mp3") || file.name.endsWith(".m4a") || file.name.endsWith(".aac") || file.name.endsWith(".ogg")) {
     
