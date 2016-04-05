@@ -2,7 +2,7 @@
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
-  'WebTorrentClient/index.html',
+  'index.html',
   'WebTorrentClient/',
   'WebTorrentClient',
   'modernizr-custom.js',
