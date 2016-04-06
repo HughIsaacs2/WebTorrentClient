@@ -1,4 +1,4 @@
-/* v0.0.1 None30 */
+/* v0.0.1 None31 */
 var appVersion = '0.0.1';
 var CACHE_NAME = 'sw-cache';
 var urlsToCache = [
@@ -6,6 +6,7 @@ var urlsToCache = [
   '/WebTorrentClient/',
   'modernizr-custom.js',
   'webtorrent.min.js',
+  'localforage.min.js',
   'playlist-parser.min.js',
   'script.js',
   'style.css',

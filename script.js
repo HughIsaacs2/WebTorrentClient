@@ -69,7 +69,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   document.getElementById('seeding').removeAttribute("disabled");
 
 
-if(window.location.hash){ if(localforage.getItem('somekey') != null){
+if(window.location.hash){ if(localforage.getItem(location.hash.split('#')[1]) != null){
 
 seedTorrent(location.hash.split('#')[1]);
 
