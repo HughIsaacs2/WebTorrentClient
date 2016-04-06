@@ -244,7 +244,7 @@ torrent.on('done', function(){
 */
 localforage.setItem(torrent.infoHash, torrent.files, function(err, value) {
     // This will output the first file.
-    console.log(“Data [“+torrent.infoHash+”] stored! “+value[0]);
+    console.log("Data [" + torrent.infoHash + "] stored! " + value[0]);
 	
 	if(document.getElementById('seeding').checked) {
 	seedTorrent(torrentId);
