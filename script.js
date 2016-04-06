@@ -67,7 +67,15 @@ if ('serviceWorker' in navigator) {
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
-  if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. ☹️. <br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
+
+
+if(window.location.hash){ if(localforage.getItem('somekey') != null){
+
+seedTorrent(location.hash.split('#')[1]);
+
+} else {
+loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); 
+} } else { playerEle.innerHTML="No Web Torrent given to load. ☹️. <br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
   	if(document.getElementById('seeding').checked) {
@@ -93,6 +101,19 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   if(window.location.hash){
   playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>, <a href='http://www.utorrent.com/' target='_blank'>µTorrent</a> or <a href='https://www.transmissionbt.com/' target='_blank'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ☹️<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
+}
+
+function seedTorrent(id) {
+
+localforage.getItem(id, function(err, value) {
+    // Run this code once the value has been
+    // loaded from the offline store.
+    console.log(value);
+torrentClient.seed(value, function (torrent) {
+    console.log('Client is seeding ' + torrent.magnetURI);
+	});
+});
+
 }
 
 function loadTorrent(urlToLoad) {
@@ -218,18 +239,19 @@ torrent.on('done', function(){
   console.log('Web Torrent finished downloading');
   
     document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
-    
+  
+/* Store data in localForage as an array (torrent.files), set with the Torrent infoHash as the ID. Log first item in the array to test it.
+*/
+localforage.setItem(torrent.infoHash, torrent.files, function(err, value) {
+    // This will output the first file.
+    console.log(“Data [“+torrent.infoHash+”] stored! “+value[0]);
+	
 	if(document.getElementById('seeding').checked) {
-	
-	torrentClient.seed(torrent.files, function (torrent) {
-    console.log('Client is seeding ' + torrent.magnetURI);
-	});
-	
+	seedTorrent(torrentId);
+	console.log('Client is seeding ' + torrent.magnetURI);
 	}
-  
-  torrent.files.forEach(function(file){
-  
-  });
+});
+
 });
   
 });
