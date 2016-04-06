@@ -24,6 +24,7 @@ index.html
 /WebTorrentClient/
 modernizr-custom.js
 webtorrent.min.js
+localforage.min.js
 playlist-parser.min.js
 script.js
 style.css
