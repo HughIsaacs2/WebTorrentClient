@@ -11,7 +11,9 @@ var urlsToCache = [
   'script.js',
   'style.css',
   'logo.svg',
-  'logo.png'
+  'logo.png',
+  'newscript.js',
+  'new.html'
 ];
 
 self.addEventListener('install', function(event) {
