@@ -1,6 +1,6 @@
 /* v0.0.1 None32 */
 var appVersion = '0.0.1';
-var CACHE_NAME = 'sw-cache';
+var CACHE_NAME = 'sw-cache-' + appVersion;
 var urlsToCache = [
   'index.html',
   '/WebTorrentClient/',
@@ -70,7 +70,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['sw-cache'];
+  var cacheWhitelist = [CACHE_NAME];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
