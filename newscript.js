@@ -71,7 +71,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   if(window.location.hash){
   var infoHashFlash = location.hash.split('btih:').pop().split('&')[0];
   
-  localforage.getItem(torrentId, function(err, value) {
+  localforage.getItem(infoHashFlash, function(err, value) {
     // Run this code once the value has been
     // loaded from the offline store.
     console.log(value);
