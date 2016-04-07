@@ -91,7 +91,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>, <a href='http://www.utorrent.com/' target='_blank'>µTorrent</a> or <a href='https://www.transmissionbt.com/' target='_blank'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>.</sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
 }
 

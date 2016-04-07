@@ -69,7 +69,8 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   document.getElementById('seeding').removeAttribute("disabled");
   if(window.location.hash){
   
-  localforage.getItem(torrentClient.get(location.hash.split('#')[1]).infoHash, function(err, value) {
+  var infoHashFlash = torrentClient.get(location.hash.split('#')[1]).infoHash;
+  localforage.getItem(infoHashFlash, function(err, value) {
     // Run this code once the value has been
     // loaded from the offline store.
     console.log(value);
