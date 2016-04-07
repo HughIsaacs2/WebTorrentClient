@@ -114,14 +114,20 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 
 function seedTorrent(id) {
 
+if(document.getElementById('seeding').checked) {
+
 localforage.getItem(id, function(err, value) {
     // Run this code once the value has been
     // loaded from the offline store.
-    console.log(value);
+    console.log(id); console.log(value);
 torrentClient.seed(value, function (torrent) {
     console.log('Client is seeding ' + id + ' - ' + torrent.magnetURI);
 	});
 });
+
+} else {
+console.log('Seeding disabled.');
+}
 
 }
 
@@ -253,11 +259,7 @@ torrent.on('done', function(){
     // This will output the first file.
     console.log("Data [" + torrent.infoHash + "] stored! " + value);
 	
-	if(document.getElementById('seeding').checked) {
-	
 	seedTorrent(torrent.infoHash);
-	
-	}
 	
     });
 
