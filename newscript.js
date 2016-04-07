@@ -77,7 +77,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
     console.log(value);
 	
 	if (value != null) {
-	seedTorrent(torrentClient.get(messyURL); console.log('Got Web Torrent! (seed) ');
+	seedTorrent(messyURL); console.log('Got Web Torrent! (seed) ');
 	} else {
 	loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent! (download) ');
 	}
