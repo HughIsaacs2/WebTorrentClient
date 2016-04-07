@@ -25,7 +25,6 @@ if (!String.prototype.startsWith) {
 		var torrentId = "";
 		var playerEle = document.getElementById("player");
 		var playlist = "";
-		var messyURL = location.hash.split('#')[1];
 
 if (window.location.protocol != "https:") {window.location.protocol = "https:";}
 
@@ -70,16 +69,17 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   document.getElementById('seeding').removeAttribute("disabled");
   
   if(window.location.hash){
+  torrentId = location.hash.split('#')[1];
   
-  localforage.getItem(messyURL, function(err, value) {
+  localforage.getItem(torrentId, function(err, value) {
     // Run this code once the value has been
     // loaded from the offline store.
     console.log(value);
 	
 	if (value != null) {
-	seedTorrent(messyURL); console.log('Got Web Torrent! (seed) ');
+	seedTorrent(torrentId); console.log('Got Web Torrent! (seed) ');
 	} else {
-	loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent! (download) ');
+	loadTorrent(torrentId); console.log('Got Web Torrent! (download) ');
 	}
 	
   });
@@ -249,7 +249,7 @@ torrent.on('done', function(){
   
     document.documentElement.className=document.documentElement.className.replace("loading","not-loading");
     
-	localforage.setItem(messyURL, torrent.files, function(err, value) {
+	localforage.setItem(torrentId, torrent.files, function(err, value) {
     // This will output the first file.
     console.log("Data [" + torrent.infoHash + "] stored! " + value);
 	
