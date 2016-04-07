@@ -91,7 +91,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>, <a href='http://www.utorrent.com/' target='_blank'>µTorrent</a> or <a href='https://www.transmissionbt.com/' target='_blank'>Transmission</a></sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
+  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>.</sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
 }
 
@@ -215,7 +215,7 @@ torrent.on('download', function(chunkSize){
   console.log('progress: ' + torrent.progress);
   console.log('======');
   */
-  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + 'peers: ' + torrent.numPeers + '<br/>' + 'path: ' + torrent.path + '<br/>';
+  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'total uploaded: ' + torrent.uploaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'upload speed: ' + torrent.uploadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + 'peers: ' + torrent.numPeers + '<br/>' + 'path: ' + torrent.path + '<br/>';
   document.getElementById("progress").textContent=torrent.progress;
   document.getElementById("progress").title=torrent.progress;
   document.getElementById("progress").value=torrent.progress;
@@ -234,7 +234,7 @@ torrent.on('done', function(){
     
 	localforage.setItem(torrent.infoHash, torrent.files, function(err, value) {
     // This will output the first file.
-    console.log("Data ["+torrent.infoHash+"] stored! "+value[0]);
+    console.log("Data [" + torrent.infoHash + "] stored! " + value);
 	
 	if(document.getElementById('seeding').checked) {
 	
