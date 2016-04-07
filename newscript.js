@@ -77,7 +77,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
     console.log(value);
 	
 	if (value != null) {
-	seedTorrent(value); console.log('Got Web Torrent! (seed) ');
+	seedTorrent(infoHashFlash); console.log('Got Web Torrent! (seed) ');
 	} else {
 	loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent! (download) ');
 	}
@@ -119,7 +119,7 @@ localforage.getItem(id, function(err, value) {
     // loaded from the offline store.
     console.log(value);
 torrentClient.seed(value, function (torrent) {
-    console.log('Client is seeding ' + torrent.magnetURI + ' - ' + id);
+    console.log('Client is seeding ' + id + ' - ' + torrent.magnetURI);
 	});
 });
 
@@ -255,7 +255,7 @@ torrent.on('done', function(){
 	
 	if(document.getElementById('seeding').checked) {
 	
-	seedTorrent(value);
+	seedTorrent(torrent.infoHash);
 	
 	}
 	
