@@ -67,7 +67,10 @@ if ('serviceWorker' in navigator) {
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
+  
   if(window.location.hash){
+  
+  torrentClient.on(location.hash.split('#')[1], function (torrent) {
   
   var infoHashFlash = torrentClient.get(location.hash.split('#')[1]).infoHash;
   localforage.getItem(infoHashFlash, function(err, value) {
@@ -80,7 +83,10 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 	} else {
 	loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent! (download) ' + torrentClient.get(location.hash.split('#')[1]).infoHash);
 	}
-});
+	
+  });
+
+  });
   
   } else { playerEle.innerHTML="No Web Torrent given to load. ??. <br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
   
