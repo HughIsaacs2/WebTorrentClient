@@ -1,4 +1,4 @@
-var appVersion = '0.0.1 None34';
+var appVersion = '0.0.1 None35';
 var CACHE_NAME = 'sw-cache-' + appVersion;
 var urlsToCache = [
   'index.html',
