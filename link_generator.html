@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="no-js" dir="ltr" xml:lang="en" lang="en" manifest="cache.appcache">
+<head>
+<meta content='IE=edge;Chrome=1' http-equiv='X-UA-Compatible'/>
+<meta charset="utf-8" />
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='width=device-width, minimum-scale=1, initial-scale=1, shrink-to-fit=no' name='viewport'/>
+<title>Web Torrent Player Generator</title>
+<meta content="#33ef9e" name="theme-color" />
+<link rel="icon" type="image/png" href="logo.png" sizes="228x228" defer="true" />
+<link rel="icon" type="image/svg" href="logo.svg" sizes="any" defer="true" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" sizes="any" defer="true" />
+<link rel="stylesheet" href="style.css" defer="true" /></head>
+</head>
+<body>
+<main id="main">
+<aside>
+	<h4>Input magnet link</h4>
+	<input id="magnet" type="url" placeholder="magnet:" /><button id='convert'>Convert</button>
+</aside>
+<hr/>
+<aside id="results">	
+	<h4>Embedded iframe</h4>
+	<iframe id="exampleiframe" title="Web Torrent Player" width="560" height="450" allowtransparency="true" allowfullscreen="true" frameborder="no" src="https://hughisaacs2.github.io/WebTorrentClient/#magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io"></iframe>
+	
+	<h4>Embed code</h4>
+	<textarea id="iframeembed" rows="4" cols="200" wrap="soft" readonly="true" style="resize: none;" onclick="this.select();">
+&lt;iframe title="Web Torrent Player" width="560" height="315" src="https://hughisaacs2.github.io/WebTorrentClient/#magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io" frameborder="0" allowtransparency="true" allowfullscreen="true"&gt;&lt;a href="magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io" target="_blank"&gt;Web Torrent&lt;/a&gt;&lt;/iframe&gt;
+	</textarea>
+	
+	<h4>Copy Link</h4>
+	<textarea id="linkcopy" rows="1" cols="200" wrap="soft" readonly="true" style="resize: none;" onclick="this.select();">
+&lt;a href="https://hughisaacs2.github.io/WebTorrentClient/#magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io" target="_blank"&gt;Web Torrent Player&lt;/a&gt;
+	</textarea>
+	
+	<h4>Link</h4>
+	<a id="anchorlink" href="https://hughisaacs2.github.io/WebTorrentClient/#magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io" target="_blank">Link</a>
+</aside>	
+</main>	
+	
+	<script type="text/javascript" src="modernizr-custom.js"></script>
+	<script type="text/javascript" src="webtorrent.min.js"></script>
+	<script type="text/javascript" defer="true">
+	"use strict";
+	document.documentElement.className=document.documentElement.className.replace("no-js","js");
+	window.scrollTo(0, 1);
+	
+	if (window.location.protocol != "https:") {window.location.protocol = "https:";}
+
+if (window.applicationCache) {
+window.applicationCache.addEventListener('updateready', function(){
+		console.log("AppCache: Update found.");
+		window.applicationCache.swapCache();
+		window.location.reload(true);
+}, false);
+window.applicationCache.addEventListener('updateready', function(){
+		console.log("AppCache: Updating.");
+}, false);
+window.applicationCache.addEventListener('noupdate', function(){
+	console.log("AppCache: No updates."); 
+}, false);
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('serviceworker.js').then(function(registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
+  }).catch(function(err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err);
+  });
+  
+  // Listen for claiming of our ServiceWorker
+  navigator.serviceWorker.addEventListener('controllerchange', function(event) {
+  // Listen for changes in the state of our ServiceWorker
+    navigator.serviceWorker.controller.addEventListener('statechange', function() {
+    // If the ServiceWorker becomes "activated", let the user know they can go offline!
+      if (this.state === 'activated') {
+      // Reload like you would with AppCache
+      window.location.reload(true);
+      }
+    });
+  });
+}
+	
+	var magnetbar = document.getElementById("magnet");
+	
+	function convertMagnet(magnet) {
+	
+	document.getElementById("iframeembed").innerHTML = '&lt;iframe title="Web Torrent Player" width="560" height="315" src="https://hughisaacs2.github.io/WebTorrentClient/#'+magnet+'" frameborder="0" allowtransparency="true" allowfullscreen="true"&gt;&lt;a href="'+magnet+'" target="_blank"&gt;Web Torrent&lt;/a&gt;&lt;/iframe&gt;';
+	
+	document.getElementById("linkcopy").innerHTML = '&lt;a href="https://hughisaacs2.github.io/WebTorrentClient/#'+magnet+'" target="_blank"&gt;Web Torrent Player&lt;/a&gt;';
+	
+	document.getElementById("anchorlink").href = 'https://hughisaacs2.github.io/WebTorrentClient/#'+magnet;
+	
+	document.getElementById("exampleiframe").src = 'https://hughisaacs2.github.io/WebTorrentClient/#'+magnet;
+	document.getElementById('exampleiframe').contentWindow.location.reload(true);
+	}
+	
+	magnetbar.onkeydown = function(){if (event.keyCode == 13) {convertMagnet(magnetbar.value);}}
+	document.getElementById('convert').addEventListener('click', function(){ convertMagnet(magnetbar.value); },false);
+	</script>
+	<style type="text/css">
+	body { background-image: none; }
+	</style>
+</body>
+</html>

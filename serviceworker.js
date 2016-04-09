@@ -11,6 +11,7 @@ var urlsToCache = [
   'style.css',
   'logo.svg',
   'logo.png',
+  'link_generator.html',
   'newscript.js',
   'new.html'
 ];
