@@ -14,11 +14,14 @@
 </head>
 <body>
 <main id="main">
+<img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="25px" height="25px" defer="true" /><br/><br/>
 <aside>
 	<h4>Input magnet link</h4>
 	<input id="magnet" type="url" placeholder="magnet:" /><button id='convert'>Convert</button>
 </aside>
+<br/>
 <hr/>
+<br/>
 <aside id="results">	
 	<h4>Embedded iframe</h4>
 	<iframe id="exampleiframe" title="Web Torrent Player" width="560" height="450" allowtransparency="true" allowfullscreen="true" frameborder="no" src="https://hughisaacs2.github.io/WebTorrentClient/#magnet:?xt=urn:btih:4d4b8d07f03630ca9e195ee91567b4d712e677f6&dn=music+test&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io"></iframe>
@@ -101,7 +104,7 @@ if ('serviceWorker' in navigator) {
 	document.getElementById('convert').addEventListener('click', function(){ convertMagnet(magnetbar.value); },false);
 	</script>
 	<style type="text/css">
-	body { background-image: none; }
+	#main { background-color: rgba(255, 255, 255, 0.95); }
 	</style>
 </body>
 </html>
