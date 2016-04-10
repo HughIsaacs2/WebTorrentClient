@@ -1,9 +1,10 @@
-var appVersion = '0.0.1 None47';
+var appVersion = '0.0.1 None48';
 var CACHE_NAME = 'sw-cache-' + appVersion;
 var urlsToCache = [
   'index.html',
   '/WebTorrentClient/',
   'modernizr-custom.js',
+  'adapter.min.js',
   'webtorrent.min.js',
   'localforage.min.js',
   'playlist-parser.min.js',
@@ -12,6 +13,8 @@ var urlsToCache = [
   'logo.svg',
   'logo.png',
   'link_generator.html',
+  'script2.js',
+  'index2.html',
   'newscript.js',
   'new.html'
 ];
@@ -68,8 +71,7 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-self.addEventListener('activate', function(event) {
-
+function refreshCache() {
   var cacheWhitelist = [CACHE_NAME];
 
   event.waitUntil(
@@ -86,4 +88,18 @@ self.addEventListener('activate', function(event) {
   
   // Calling claim() to force a "controllerchange" event on navigator.serviceWorker
   event.waitUntil(self.clients.claim());
+}
+
+self.addEventListener('activate', function(event) {
+
+refreshCache();
+
+});
+
+self.addEventListener('sync', function(event) {
+
+  if (event.tag == 'refreshCache') {
+    event.waitUntil(refreshCache());
+  }
+
 });

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# AppCache v0.0.1 None47
+# AppCache v0.0.1 None48
 
 NETWORK:
 http://google-analytics.com/ga.js
@@ -23,6 +23,7 @@ CACHE:
 index.html
 /WebTorrentClient/
 modernizr-custom.js
+adapter.min.js
 webtorrent.min.js
 localforage.min.js
 playlist-parser.min.js
@@ -31,6 +32,8 @@ style.css
 logo.svg
 logo.png
 link_generator.html
+script2.js
+index2.html
 newscript.js
 new.html
 
