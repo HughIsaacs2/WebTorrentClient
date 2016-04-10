@@ -1,4 +1,4 @@
-var appVersion = '0.0.1 None48';
+var appVersion = '0.0.1 None49';
 var CACHE_NAME = 'sw-cache-' + appVersion;
 var urlsToCache = [
   'index.html',
@@ -91,9 +91,7 @@ function refreshCache() {
 }
 
 self.addEventListener('activate', function(event) {
-
 refreshCache();
-
 });
 
 self.addEventListener('sync', function(event) {
