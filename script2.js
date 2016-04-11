@@ -20,7 +20,7 @@ if (!String.prototype.startsWith) {
       return this.substr(position, searchString.length) === searchString;
   };
 }
-
+		var torrentClient = "";
 		var torrentId = "";
 		var playerEle = document.getElementById("player");
 		var playlist = "";
@@ -79,7 +79,7 @@ if ('serviceWorker' in navigator && 'SyncManager' in window) {
 
 if (window) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 AdapterJS.webRTCReady(function(isUsingPlugin) {
-		var torrentClient = new WebTorrent();
+	var torrentClient = new WebTorrent();
     // The WebRTC API is ready.
     //isUsingPlugin: true is the WebRTC plugin is being used, false otherwise
   console.log('Web Torrent is supported!');
