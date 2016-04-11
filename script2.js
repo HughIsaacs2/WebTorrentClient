@@ -77,8 +77,10 @@ if ('serviceWorker' in navigator && 'SyncManager' in window) {
   console.log("Background sync not supported.");
 }
 
-if (window) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
 AdapterJS.webRTCReady(function(isUsingPlugin) {
+
+if (window) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
+
 	var torrentClient = new WebTorrent();
     // The WebRTC API is ready.
     //isUsingPlugin: true is the WebRTC plugin is being used, false otherwise
@@ -104,7 +106,7 @@ AdapterJS.webRTCReady(function(isUsingPlugin) {
       document.getElementById('seeding').removeAttribute("checked");
     }
   }
-});  
+  
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
@@ -253,4 +255,5 @@ torrent.on('done', function(){
 
 }
 
-navigator.registerProtocolHandler("web+magnet", "/#magnet:%s", "Web Magnet");
+});
+//navigator.registerProtocolHandler("web+magnet", "/#magnet:%s", "Web Magnet");
