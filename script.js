@@ -62,6 +62,21 @@ if ('serviceWorker' in navigator) {
       }
     });
   });
+
+}
+
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then(function(reg) {
+    return reg.sync.register('refreshCache');
+	console.log("Background sync registered.");
+  }).catch(function() {
+    // system was unable to register for a sync,
+    // this could be an OS-level restriction
+    console.log("Couldn't register for background sync.");
+  });
+} else {
+  // serviceworker/sync not supported
+  console.log("Background sync not supported.");
 }
 
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
@@ -139,7 +154,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     playerEle.appendChild(a);
 	*/
 	  
-      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.PNG' || file.name === 'cover.jpeg') {
+      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.jpeg' || file.name === 'cover.gif') {
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
@@ -202,7 +217,7 @@ torrent.on('download', function(chunkSize){
   console.log('progress: ' + torrent.progress);
   console.log('======');
   */
-  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + 'peers: ' + torrent.numPeers + '<br/>' + 'path: ' + torrent.path + '<br/>';
+  document.getElementById("log").innerHTML='chunk size: ' + chunkSize + '<br/>' + 'total downloaded: ' + torrent.downloaded + '<br/>' + 'total uploaded: ' + torrent.uploaded + '<br/>' + 'download speed: ' + torrent.downloadSpeed + '<br/>' + 'upload speed: ' + torrent.uploadSpeed + '<br/>' + 'progress: ' + torrent.progress + '<br/>' + 'peers: ' + torrent.numPeers + '<br/>' + 'path: ' + torrent.path + '<br/>';
   document.getElementById("progress").textContent=torrent.progress;
   document.getElementById("progress").title=torrent.progress;
   document.getElementById("progress").value=torrent.progress;

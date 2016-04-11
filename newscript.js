@@ -64,6 +64,20 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then(function(reg) {
+    return reg.sync.register('refreshCache');
+	console.log("Background sync registered.");
+  }).catch(function() {
+    // system was unable to register for a sync,
+    // this could be an OS-level restriction
+    console.log("Couldn't register for background sync.");
+  });
+} else {
+  // serviceworker/sync not supported
+  console.log("Background sync not supported.");
+}
+
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
