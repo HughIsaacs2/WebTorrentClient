@@ -263,6 +263,24 @@ torrent.on('wire', function (wire, addr) {
   console.log('connected to peer with address ' + addr);
 });
 
+/* When infoHash determined */
+torrent.on('infoHash', function(){
+
+localforage.getItem(torrent.infoHash).then(function(value) {
+    // This code runs once the value has been loaded
+    // from the offline store.
+	console.log('Web Torrent files already stored offline.');
+    console.log(value);
+	
+	seedTorrent(torrent.infoHash);
+	
+}).catch(function(err) {
+    // This code runs if there were any errors
+    console.log(err);
+});
+
+});
+
 /* Torrent finished event */
 torrent.on('done', function(){
   console.log('Web Torrent finished downloading');
@@ -284,3 +302,4 @@ torrent.on('done', function(){
 }
 
 navigator.registerProtocolHandler("web+magnet", "/#magnet:%s", "Web Magnet");
+navigator.registerProtocolHandler("magnet", "/#magnet:%s", "Magnet");
