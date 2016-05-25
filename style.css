@@ -32,6 +32,7 @@ body {
     overflow: auto;
     font-family: noto, ubuntu, Lucida Sans, Lucida Grande, Lucida Sans Unicode, HelveticaNeue-Light, HelveticaNeue, Helvetica, Arial, sans-serif, Segoe UI, 'Segoe UI Symbol', 'emoji';
 	text-align: center;
+	word-wrap: break-word;
 }
 
 body {
