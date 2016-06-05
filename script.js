@@ -154,7 +154,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     playerEle.appendChild(a);
 	*/
 	  
-      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.jpeg' || file.name === 'cover.gif') {
+      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.jpeg' || file.name === 'cover.gif' || file.name === 'poster.jpg' || file.name === 'poster.jpeg') {
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";

@@ -189,7 +189,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     playerEle.appendChild(a);
 	*/
 	  
-      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.PNG' || file.name === 'cover.jpeg') {
+      if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.jpeg' || file.name === 'cover.gif' || file.name === 'poster.jpg' || file.name === 'poster.jpeg') {
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
 	  document.body.style.backgroundImage = "url('" + url + "')";
@@ -269,7 +269,7 @@ torrent.on('infoHash', function(){
 localforage.getItem(torrent.infoHash).then(function(value) {
     // This code runs once the value has been loaded
     // from the offline store.
-	console.log('Web Torrent files already stored offline.');
+	console.log('Web Torrent files [' + torrent.infoHash + '] already stored offline.');
     console.log(value);
 	
 	seedTorrent(torrent.infoHash);
