@@ -1,0 +1,36 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "version": "0.0.2",
+  "name": "WebTorrent Player",
+  "short_name": "WT Player",
+  "description": "WebTorrent Player",
+  "start_url": "/WebTorrentClient/",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/WebTorrentClient/",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "228x228",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg"
+    }
+  ],
+  "theme_color": "#1A1A3E",
+  "background_color": "#1A1A3E",
+  "serviceworker": {
+      "src": "/serviceworker.js",
+      "scope": "/",
+      "use_cache": true
+  }
+}

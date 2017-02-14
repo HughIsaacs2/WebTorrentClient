@@ -1,5 +1,5 @@
-var appVersion = '0.0.1 None57';
-var CACHE_NAME = 'sw-cache-' + appVersion;
+var appVersion = '0.0.1 None58';
+var CACHE_NAME = 'sw-cache-'+appVersion;
 var urlsToCache = [
   'index.html',
   '/WebTorrentClient/',
@@ -28,9 +28,16 @@ self.addEventListener('install', function(event) {
         return cache.addAll(urlsToCache);
       })
   );
+  if (event.registerForeignFetch) {
+  event.registerForeignFetch({
+    scopes: [self.registration.scope],
+    origins: ['*']
+  });
+  }
 });
 
 self.addEventListener('fetch', function(event) {
+
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -68,10 +75,22 @@ self.addEventListener('fetch', function(event) {
           }
         );
       })
-    );
+  );
 });
 
-function refreshCache() {
+self.addEventListener('foreignfetch', event => {
+  // The new Request will have credentials omitted by default.
+  const noCredentialsRequest = new Request(event.request.url);
+  event.respondWith(
+    // Replace with your own request logic as appropriate.
+    fetch(noCredentialsRequest)
+      .catch(() => caches.match(noCredentialsRequest))
+      .then(response => ({response}))
+  );
+});
+
+self.addEventListener('activate', function(event) {
+
   var cacheWhitelist = [CACHE_NAME];
 
   event.waitUntil(
@@ -88,16 +107,29 @@ function refreshCache() {
   
   // Calling claim() to force a "controllerchange" event on navigator.serviceWorker
   event.waitUntil(self.clients.claim());
-}
-
-self.addEventListener('activate', function(event) {
-refreshCache();
 });
 
 self.addEventListener('sync', function(event) {
 
   if (event.tag == 'refreshCache') {
-    event.waitUntil(refreshCache());
+    event.waitUntil(function(){
+	  var cacheWhitelist = [CACHE_NAME];
+
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+  
+  // Calling claim() to force a "controllerchange" event on navigator.serviceWorker
+  event.waitUntil(self.clients.claim());
+	});
   }
 
 });
