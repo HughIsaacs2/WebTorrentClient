@@ -2,6 +2,14 @@
 document.documentElement.className=document.documentElement.className.replace("no-js","js");
 window.scrollTo(0, 1);
 
+if (window.location.protocol == ‘dat:’) {
+var res = navigator.permissions.request({
+  name: 'network',
+  hostname: '*'
+});
+console.log(res.status);
+}
+
 if (!String.prototype.endsWith) {
   String.prototype.endsWith = function(searchString, position) {
       var subjectString = this.toString();
@@ -26,7 +34,7 @@ if (!String.prototype.startsWith) {
 		var playerEle = document.getElementById("player");
 		var playlist = "";
 
-if (window.location.protocol != "https:") {window.location.protocol = "https:";}
+if (window.location.protocol == "http:") {window.location.protocol = "https:";}
 
 if (window.applicationCache) {
 window.applicationCache.addEventListener('updateready', function(){
@@ -82,7 +90,7 @@ if ('serviceWorker' in navigator && 'SyncManager' in window) {
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
-  if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href='/WebTorrentClient/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
+  if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href=‘/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
   	if(document.getElementById('seeding').checked) {
