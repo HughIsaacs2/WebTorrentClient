@@ -2,13 +2,13 @@
 document.documentElement.className=document.documentElement.className.replace("no-js","js");
 window.scrollTo(0, 1);
 
-if (window.location.protocol == ‘dat:’) {
+//if (window.location.protocol == "dat:") {
 var res = navigator.permissions.request({
   name: 'network',
   hostname: '*'
 });
 console.log(res.status);
-}
+//}
 
 if (!String.prototype.endsWith) {
   String.prototype.endsWith = function(searchString, position) {
