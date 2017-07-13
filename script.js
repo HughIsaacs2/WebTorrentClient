@@ -3,11 +3,11 @@ document.documentElement.className=document.documentElement.className.replace("n
 window.scrollTo(0, 1);
 
 if (window.location.protocol == "dat:") {
-var datreq = navigator.permissions.request({
+var res = navigator.permissions.request({
   name: 'network',
   hostname: '*'
 });
-console.log(datreq.status);
+console.log(res.status);
 }
 
 if (!String.prototype.endsWith) {
