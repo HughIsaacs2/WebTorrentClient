@@ -2,14 +2,6 @@
 document.documentElement.className=document.documentElement.className.replace("no-js","js");
 window.scrollTo(0, 1);
 
-if (window.location.protocol == "dat:") {
-var res = navigator.permissions.request({
-  name: 'network',
-  hostname: '*'
-});
-console.log(res.status);
-}
-
 if (!String.prototype.endsWith) {
   String.prototype.endsWith = function(searchString, position) {
       var subjectString = this.toString();
@@ -46,51 +38,15 @@ window.applicationCache.addEventListener('updateready', function(){
 		console.log("AppCache: Updating.");
 }, false);
 window.applicationCache.addEventListener('noupdate', function(){
-	console.log("AppCache: No updates."); 
+	console.log("AppCache: No updates.");
 }, false);
-}
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('serviceworker.js').then(function(registration) {
-    // Registration was successful
-    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
-  }).catch(function(err) {
-    // registration failed :(
-    console.log('ServiceWorker registration failed: ', err);
-  });
-  
-  // Listen for claiming of our ServiceWorker
-  navigator.serviceWorker.addEventListener('controllerchange', function(event) {
-  // Listen for changes in the state of our ServiceWorker
-    navigator.serviceWorker.controller.addEventListener('statechange', function() {
-    // If the ServiceWorker becomes "activated", let the user know they can go offline!
-      if (this.state === 'activated') {
-      // Reload like you would with AppCache
-      window.location.reload(true);
-      }
-    });
-  });
-
-}
-
-if ('serviceWorker' in navigator && 'SyncManager' in window) {
-  navigator.serviceWorker.ready.then(function(reg) {
-    return reg.sync.register('refreshCache');
-	console.log("Background sync registered.");
-  }).catch(function() {
-    // system was unable to register for a sync,
-    // this could be an OS-level restriction
-    console.log("Couldn't register for background sync.");
-  });
-} else {
-  // serviceworker/sync not supported
-  console.log("Background sync not supported.");
 }
 
 if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
-  if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else { playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href=‘/#magnet:?xt=urn:btih:b260fa9dc51093bd20d31ca9ccfa3c3abf157a13&dn=art_of_war_librivox&tr=http%3A%2F%2Fbt1.archive.org%3A6969%2Fannounce&tr=http%3A%2F%2Fbt2.archive.org%3A6969%2Fannounce&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=http%3A%2F%2Fia600508.us.archive.org%2F19%2Fitems%2F&ws=http%3A%2F%2Fia700508.us.archive.org%2F19%2Fitems%2F&ws=https%3A%2F%2Farchive.org%2Fdownload%2F' target='_blank'>Try an audiobook of the Art of War by Sun Tzu (Translated by Lionel Giles. Read by Moira Fogarty.)</a>."; }
+  if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else {
+playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href='/#magnet:?xt=urn:btih:a88fda5954e89178c372716a6a78b8180ed4dad3&dn=The+WIRED+CD+-+Rip.+Sample.+Mash.+Share&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F' target='_blank'>Try 'The WIRED CD'</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
   	if(document.getElementById('seeding').checked) {
@@ -124,16 +80,34 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
-playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading'/><br/>";
+playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading' aria-busy='true'/><br/>";
 
 /* Start download */
-torrentClient.add(torrentId, function (torrent) {
+torrentClient.add(torrentId, {announce:["wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz", "wss://tracker.openwebtorrent.com"]}, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash);
   
   document.title = "Web Torrent Player [" + torrent.infoHash + "]";
   
-  document.getElementById("info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/><sub>" + torrent.magnetURI + "</sub><br/>";
+  document.getElementById("info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/>";
+  
+  document.getElementById("magnet-link").href=torrent.magnetURI;
+  document.getElementById("magnet-link").textContent=torrent.magnetURI;
+  document.getElementById("magnet-link").removeAttribute('hidden');
+  
+  document.getElementById("embed-code").textContent="<iframe src=\""+ location.origin + "/#" + torrent.infoHash +"\" width=\"300\" height=\"380\" frameborder=\"0\" scrolling=\"no\" allowtransparency=\"true\" lazyload=\"1\" loading=\"lazy\" importance=\"low\" allowfullscreen=\"true\" sandbox=\"allow-scripts allow-forms allow-popups allow-presentation\" allow=\"speaker; picture-in-picture; animations; fullscreen; encrypted-media; unsized-media 'none'; geolocation 'none'; midi 'none'; payment 'none'; accelerometer 'none'; vr 'none'; camera 'none'; magnetometer 'none'; usb 'none'; ambient-light-sensor 'none'; gyroscope 'none'; microphone 'none'; document-write 'none'; vertical-scroll 'none';\"></iframe>";
+  
+  document.getElementById("embed-code").addEventListener("click", function(){
+	  document.getElementById("embed-code").focus();
+	  document.getElementById("embed-code").select();
+  });
+  
+  document.getElementById("embed-code").addEventListener("focus", function(){
+	  document.getElementById("embed-code").focus();
+	  document.getElementById("embed-code").select();
+  });
+  
+  document.getElementById("embed-code").removeAttribute('hidden');
   
 /* Remove #loading when first file is displayed */
 torrent.files[0].getBlobURL(function (err, url) {
@@ -202,6 +176,23 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.className = "button download-link";
     playerEle.appendChild(a);
 	
+	} else if (file.name.endsWith(".png")  || file.name.endsWith(".webp") || file.name.endsWith(".gif") || file.name.endsWith(".jpg") || file.name.endsWith(".jpeg") || file.name.endsWith(".svg") || file.name.endsWith(".ico") || file.name.endsWith(".apng")) {
+	
+	var imgBox = document.createElement('img');
+	imgBox.src = url;
+	imgBox.title = file.name;
+	imgBox.setAttribute("width","200px");
+	imgBox.setAttribute("height","auto");
+    imgBox.className = "image-box";
+	playerEle.appendChild(imgBox);
+	
+    var a = document.createElement('a');
+    a.download = file.name;
+    a.href = url;
+    a.textContent = 'Download ' + file.name;
+    a.className = "button download-link";
+    playerEle.appendChild(a);	
+		
 	} else {
     
     var a = document.createElement('a');
@@ -260,3 +251,60 @@ torrent.on('done', function(){
 }
 
 navigator.registerProtocolHandler("web+magnet", "/#magnet:%s", "Web Magnet");
+
+if ('mediaSession' in navigator) {
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: 'WebTorrent Player',
+    artist: 'WTPlay',
+    album: 'WTPlay',
+    artwork: [
+      { src: 'logo.png', sizes: '228x228', type: 'image/png' },
+      { src: 'logo.svg', sizes: 'any', type: 'image/svg' }
+    ]
+  });
+
+  navigator.mediaSession.setActionHandler('play', function() {});
+  navigator.mediaSession.setActionHandler('pause', function() {});
+  navigator.mediaSession.setActionHandler('seekbackward', function() {});
+  navigator.mediaSession.setActionHandler('seekforward', function() {});
+  navigator.mediaSession.setActionHandler('previoustrack', function() {});
+  navigator.mediaSession.setActionHandler('nexttrack', function() {});
+}
+
+if (window.isSecureContext && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('serviceworker.js').then(function(registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
+  }).catch(function(err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err);
+  });
+  
+  // Listen for claiming of our ServiceWorker
+  navigator.serviceWorker.addEventListener('controllerchange', function(event) {
+  // Listen for changes in the state of our ServiceWorker
+    navigator.serviceWorker.controller.addEventListener('statechange', function() {
+    // If the ServiceWorker becomes "activated", let the user know they can go offline!
+      if (this.state === 'activated') {
+      // Reload like you would with AppCache
+      window.location.reload(true);
+      }
+    });
+  });
+
+}
+
+if (window.isSecureContext && 'serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then(function(reg) {
+    return reg.sync.register('refreshCache');
+	console.log("Background sync registered.");
+  }).catch(function() {
+    // system was unable to register for a sync,
+    // this could be an OS-level restriction
+    console.log("Couldn't register for background sync.");
+  });
+} else {
+  // serviceworker/sync not supported
+  console.log("Background sync not supported.");
+}

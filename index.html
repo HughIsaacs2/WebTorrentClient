@@ -7,24 +7,26 @@
 <meta content='width=device-width, minimum-scale=1, initial-scale=1, shrink-to-fit=no' name='viewport'/>
 <title>Web Torrent Player</title>
 <meta content="#33ef9e" name="theme-color" />
-<link rel="icon" type="image/png" href="logo.png" sizes="228x228" defer="true" />
-<link rel="icon" type="image/svg" href="logo.svg" sizes="any" defer="true" />
-<link rel="icon" type="image/svg+xml" href="logo.svg" sizes="any" defer="true" />
-<link rel="stylesheet" href="style.css" defer="true" />
+<link rel="icon" type="image/png" href="logo.png" sizes="228x228" lazyload="1" />
+<link rel="icon" type="image/svg" href="logo.svg" sizes="any" lazyload="1" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" sizes="any" lazyload="1" />
+<link rel="stylesheet" href="style.css" lazyload="1" />
 <link rel="manifest" href="webtorrentplayer.webmanifest"/>
 </head>
 <body>
-<main id="main"><img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="25px" height="25px" defer="true" /><br/><sub>v0.0.2</sub><br/><noscript>Sorry. This web app sadly requires JavaScript to work.</noscript>
+<main id="main"><img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="25px" height="25px" lazyload="1" /><br/><sub>v0.0.2</sub><br/><noscript>Sorry. This web app sadly requires JavaScript to work.</noscript>
 <aside id="player"></aside><br/>
 <label><input type="checkbox" id="seeding" value="seeding" disabled="disabled"> Seed files when downloaded.</label><br/>
 <progress id="progress" title="0" value="0" max="1">0</progress><br/>
 <aside id="log"></aside><br/>
 <aside id="info"></aside><br/>
+<a id="magnet-link" href="magnet:" hidden="true">magnet</a>
+<textarea id="embed-code" readonly="true" rows="10" hidden="true"></textarea>
 </main>
 <script type="text/javascript" src="modernizr-custom.js"></script>
 <script type="text/javascript" src="webtorrent.min.js"></script>
 <script type="text/javascript" src="playlist-parser.min.js"></script>
 <script type="text/javascript" src="localforage.min.js"></script>
-<script type="text/javascript" src="script.js" defer="true"></script>
+<script type="text/javascript" src="script.js" defer="true" lazyload="1"></script>
 </body>
 </html>

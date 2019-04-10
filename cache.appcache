@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# AppCache v0.0.1 None62
+# AppCache v0.0.1 None59
 
 NETWORK:
 http://google-analytics.com/ga.js
@@ -32,10 +32,8 @@ style.css
 logo.svg
 logo.png
 link_generator.html
-script2.js
-index2.html
-newscript.js
-new.html
+iframe-test.html
+webtorrentplayer.webmanifest
 
 FALLBACK:
 #

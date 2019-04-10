@@ -1,4 +1,4 @@
-var appVersion = '0.0.1 None62';
+var appVersion = '0.0.1 None59';
 var CACHE_NAME = 'sw-cache-'+appVersion;
 var urlsToCache = [
   'index.html',
@@ -13,10 +13,8 @@ var urlsToCache = [
   'logo.svg',
   'logo.png',
   'link_generator.html',
-  'script2.js',
-  'index2.html',
-  'newscript.js',
-  'new.html'
+  'iframe-test.html',
+  'webtorrentplayer.webmanifest'
 ];
 
 self.addEventListener('install', function(event) {
