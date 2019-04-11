@@ -15,13 +15,31 @@
 </head>
 <body>
 <main id="main"><img id="logo" src="logo.png" srcset="logo.svg 1x, logo.svg 2x, logo.svg 3x" alt="" width="25px" height="25px" lazyload="1" /><br/><sub>v0.0.2</sub><br/><noscript>Sorry. This web app sadly requires JavaScript to work.</noscript>
-<aside id="player"></aside><br/>
+<nav id="controls">
+<span id="info">No song</span><br/>
+
+<button id="previous-track" class="button" title="Previous Track"><svg width="1" height="1" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 141q19-19 32-13t13 32v1472q0 26-13 32t-32-13l-710-710q-9-9-13-19v678q0 26-19 45t-45 19h-128q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h128q26 0 45 19t19 45v678q4-11 13-19z" fill="#fff"/></svg></button>
+
+<button id="play" class="button" title="Play"><svg width="1" height="1" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1576 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" fill="#fff"/></svg></button>
+
+<button id="pause" class="button" title="Pause"><svg width="1" height="1" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zm-896 0v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" fill="#fff"/></svg></button>
+
+<button id="next-track" class="button" title="Next Track"><svg width="1" height="1" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M429 1651q-19 19-32 13t-13-32v-1472q0-26 13-32t32 13l710 710q8 8 13 19v-678q0-26 19-45t45-19h128q26 0 45 19t19 45v1408q0 26-19 45t-45 19h-128q-26 0-45-19t-19-45v-678q-5 10-13 19z" fill="#fff"/></svg></button>
+<br/>
+<input type="range" id="track" name="track" value="0" min="0" max="100" />
+<br/><br/>
 <label><input type="checkbox" id="seeding" value="seeding" disabled="disabled"> Seed files when downloaded.</label><br/>
 <progress id="progress" title="0" value="0" max="1">0</progress><br/>
-<aside id="log"></aside><br/>
-<aside id="info"></aside><br/>
-<a id="magnet-link" href="magnet:" hidden="true">magnet</a>
-<textarea id="embed-code" readonly="true" rows="10" hidden="true"></textarea>
+</nav><br/>
+<audio id="player" src="about:blank" controls="" hidden></audio>
+<details>
+    <summary class="button">Extra Info</summary>
+    <aside id="log"></aside>
+	<aside id="torrent-info"></aside><br/>
+	<a id="magnet-link" href="magnet:" hidden="true">magnet</a>
+	<textarea id="embed-code" readonly="true" rows="10" hidden="true"></textarea>
+	<aside id="files"></aside><br/>
+</details>
 </main>
 <script type="text/javascript" src="modernizr-custom.js"></script>
 <script type="text/javascript" src="webtorrent.min.js"></script>

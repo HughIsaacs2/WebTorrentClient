@@ -2,29 +2,10 @@
 document.documentElement.className=document.documentElement.className.replace("no-js","js");
 window.scrollTo(0, 1);
 
-if (!String.prototype.endsWith) {
-  String.prototype.endsWith = function(searchString, position) {
-      var subjectString = this.toString();
-      if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
-        position = subjectString.length;
-      }
-      position -= searchString.length;
-      var lastIndex = subjectString.indexOf(searchString, position);
-      return lastIndex !== -1 && lastIndex === position;
-  };
-}
-
-if (!String.prototype.startsWith) {
-    String.prototype.startsWith = function(searchString, position){
-      position = position || 0;
-      return this.substr(position, searchString.length) === searchString;
-  };
-}
-
 		var torrentClient = new WebTorrent();
 		var torrentId = "";
-		var playerEle = document.getElementById("player");
-		var playlist = "";
+		var fileList = document.getElementById("files");
+		var playlist = [];
 
 if (window.location.protocol == "http:") {window.location.protocol = "https:";}
 
@@ -46,7 +27,7 @@ if (Modernizr.datachannel) { /* if (WebTorrent.WEBRTC_SUPPORT) { */
   console.log('Web Torrent is supported!');
   document.getElementById('seeding').removeAttribute("disabled");
   if(window.location.hash){ loadTorrent(location.hash.split('#')[1]); console.log('Got Web Torrent!'); } else {
-playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href='/#magnet:?xt=urn:btih:a88fda5954e89178c372716a6a78b8180ed4dad3&dn=The+WIRED+CD+-+Rip.+Sample.+Mash.+Share&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F' target='_blank'>Try 'The WIRED CD'</a>."; }
+fileList.innerHTML="No Web Torrent given to load. 😞<br/><a href='/#magnet:?xt=urn:btih:a88fda5954e89178c372716a6a78b8180ed4dad3&dn=The+WIRED+CD+-+Rip.+Sample.+Mash.+Share&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F' target='_blank'>Try 'The WIRED CD'</a>."; }
   
   document.getElementById('seeding').addEventListener("change", function(){
   	if(document.getElementById('seeding').checked) {
@@ -70,7 +51,7 @@ playerEle.innerHTML="No Web Torrent given to load. 😞<br/><a href='/#magnet:?x
 } else {
   console.log('No Web Torrent support.');
   if(window.location.hash){
-  playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. 😞<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>.</sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { playerEle.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
+  fileList.innerHTML="Sorry. Web Torrent isn't supported in your browser. 😞<br/><br/><a href='" + location.hash.split('#')[1] + "'>Try downloading this in your BitTorrent client</a>.<br/><sub>If you don't have one, try <a href='http://webtorrent.io/desktop/' target='_blank'>WebTorrent Desktop</a>.</sub> <br/>Or <a href='http://www.bitlet.org?torrent=" + location.hash.split('#')[1] + "' target='_blank'>Try downloading this from BitLet.org</a>."; } else { fileList.innerHTML="Sorry. Web Torrent isn't supported in your browser. ??<br/><br/>Also there was no Web Torrent given to load.<br/>" }
   document.getElementById('seeding').setAttribute("disabled","disabled");
 }
 
@@ -80,7 +61,7 @@ torrentId = urlToLoad;
 
 document.documentElement.className=document.documentElement.className.replace("not-loading","loading");
 
-playerEle.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading' aria-busy='true'/><br/>";
+fileList.innerHTML="<img id='loading' src='logo.png' srcset='logo.svg' alt='loading' title='loading' aria-busy='true'/><br/>";
 
 /* Start download */
 torrentClient.add(torrentId, {announce:["wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz", "wss://tracker.openwebtorrent.com"]}, function (torrent) {
@@ -89,7 +70,7 @@ torrentClient.add(torrentId, {announce:["wss://tracker.btorrent.xyz", "wss://tra
   
   document.title = "Web Torrent Player [" + torrent.infoHash + "]";
   
-  document.getElementById("info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/>";
+  document.getElementById("torrent-info").innerHTML+="<sub>"+torrent.infoHash + "</sub><br/><br/>";
   
   document.getElementById("magnet-link").href=torrent.magnetURI;
   document.getElementById("magnet-link").textContent=torrent.magnetURI;
@@ -113,7 +94,7 @@ torrentClient.add(torrentId, {announce:["wss://tracker.btorrent.xyz", "wss://tra
 torrent.files[0].getBlobURL(function (err, url) {
 	  if (err) { throw err }
 	  if(document.getElementById('loading')!=null){
-	  document.getElementById("player").removeChild(document.getElementById("loading"));
+	  document.getElementById("files").removeChild(document.getElementById("loading"));
 	  }
 });
 
@@ -126,55 +107,59 @@ torrent.files[0].getBlobURL(function (err, url) {
     audio.src = url;
     audio.controls = "true";
     audio.className = "player";
-    playerEle.appendChild(audio);
+    fileList.appendChild(audio);
     
     var a = document.createElement('a');
     a.download = file.name;
     a.href = url;
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
-    playerEle.appendChild(a);
+    fileList.appendChild(a);
 	*/
 	  
       if (file.name === 'cover.png' || file.name === 'cover.jpg' || file.name === 'cover.jpeg' || file.name === 'cover.gif' || file.name === 'poster.jpg' || file.name === 'poster.jpeg') {
         console.log("Torrent: [" + torrent.infoHash + "] has a cover!");
 
-	  document.body.style.backgroundImage = "url('" + url + "')";
+	  document.getElementById("main").style.backgroundImage = "linear-gradient(150deg, #1c688c 1%, rgba(0, 0, 0, 0.75) 10%, rgba(0, 0, 0, 0.5) 80%), url('" + url + "')";
 	  
 	  var a = document.createElement('a');
 	  a.download = file.name;
 	  a.href = url;
 	  a.textContent = 'Download ' + file.name;
 	  a.className = "button download-link";
-	  playerEle.appendChild(a);
+	  fileList.appendChild(a);
 
       } else if (file.name === 'playlist.m3u' || file.name === 'playlist.m3u8') {
         console.log("Torrent: [" + torrent.infoHash + "] has a playlist!");
 
-        var playlist = M3U.parse(url);
-		console.log("Playlist: " + JSON.stringify(playlist));
+        //var playlist = M3U.parse(url);
+		//console.log("Playlist: " + JSON.stringify(playlist));
 		
 		var a = document.createElement('a');
 		a.download = file.name;
 		a.href = url;
 		a.textContent = 'Download ' + file.name;
 		a.className = "button download-link";
-		playerEle.appendChild(a);
+		fileList.appendChild(a);
 	  
 	  } else if (file.name.endsWith(".mp3") || file.name.endsWith(".m4a") || file.name.endsWith(".aac") || file.name.endsWith(".ogg")) {
+		  
+	playlist.push(file.name);
+	playlist.sort();
+	console.log(playlist);
     
     var audio = document.createElement('audio');
     audio.src = url;
     audio.controls = "true";
     audio.className = "player";
-    playerEle.appendChild(audio);
+    fileList.appendChild(audio);
     
     var a = document.createElement('a');
     a.download = file.name;
     a.href = url;
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
-    playerEle.appendChild(a);
+    fileList.appendChild(a);
 	
 	} else if (file.name.endsWith(".png")  || file.name.endsWith(".webp") || file.name.endsWith(".gif") || file.name.endsWith(".jpg") || file.name.endsWith(".jpeg") || file.name.endsWith(".svg") || file.name.endsWith(".ico") || file.name.endsWith(".apng")) {
 	
@@ -184,14 +169,14 @@ torrent.files[0].getBlobURL(function (err, url) {
 	imgBox.setAttribute("width","200px");
 	imgBox.setAttribute("height","auto");
     imgBox.className = "image-box";
-	playerEle.appendChild(imgBox);
+	fileList.appendChild(imgBox);
 	
     var a = document.createElement('a');
     a.download = file.name;
     a.href = url;
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
-    playerEle.appendChild(a);	
+    fileList.appendChild(a);	
 		
 	} else {
     
@@ -200,7 +185,7 @@ torrent.files[0].getBlobURL(function (err, url) {
     a.href = url;
     a.textContent = 'Download ' + file.name;
     a.className = "button download-link";
-    playerEle.appendChild(a);
+    fileList.appendChild(a);
 	}
 	
 	
