@@ -143,7 +143,7 @@ torrent.files[0].getBlobURL(function (err, url) {
 		fileList.appendChild(a);
 	  
 	  } else if (file.name.endsWith(".mp3") || file.name.endsWith(".m4a") || file.name.endsWith(".aac") || file.name.endsWith(".ogg")) {
-		  
+		
 	playlist.push(file.name);
 	playlist.sort();
 	console.log(playlist);
